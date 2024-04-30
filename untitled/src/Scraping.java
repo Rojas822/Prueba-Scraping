@@ -9,7 +9,7 @@ import java.util.List;
 
 public class Scraping {
     public static void main(String[] args) {
-        Conection gestorProductos = new Conection(); // Crear instancia de GestorProductos
+        Conexion gestorProductos = new Conexion();
         WebDriver driver = null;
 
         try {
@@ -26,17 +26,17 @@ public class Scraping {
                 driver.get(baseUrl + productElement.getAttribute("data-url"));
                 Thread.sleep(150000);
 
-                Product product = new Product();
-                product.setUrl(baseUrl + productElement.getAttribute("data-url"));
-                product.setName(driver.findElement(By.cssSelector("div.new-container_header-responsive>div.new-containerheader_title>h1")).getText());
-                product.setPrecio(driver.findElement(By.cssSelector("div.price-block.d-inline.no-padding>span.js-original_price")).getText());
-                product.setCode(driver.findElement(By.cssSelector("div.new-container__header__code>span.js-ean-pdp")).getText());
+                Producto producto = new Producto();
+                producto.setUrl(baseUrl + productElement.getAttribute("data-url"));
+                producto.setNombre(driver.findElement(By.cssSelector("div.new-container_header-responsive>div.new-containerheader_title>h1")).getText());
+                producto.setPrecio(driver.findElement(By.cssSelector("div.price-block.d-inline.no-padding>span.js-original_price")).getText());
+                producto.setCodigo(driver.findElement(By.cssSelector("div.new-container__header__code>span.js-ean-pdp")).getText());
 
 
-                gestorProductos.insertarProducto(product.getName(), product.getPrecio(), product.getCode());
+                gestorProductos.insertarProducto(producto.getNombre(), producto.getPrecio(), producto.getCodigo());
 
                 cont++;
-                System.out.println(product);
+                System.out.println(producto);
 
                 if (cont == 5) {
                     break;
